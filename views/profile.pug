@@ -1,0 +1,301 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title MiiTrace
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    // Le styles
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js')
+    link(rel='stylesheet', href='assets/css/style.css')
+    link(rel='stylesheet', href='assets/css/loader-style.css')
+    link(rel='stylesheet', href='assets/css/bootstrap.css')
+    link(rel='stylesheet', href='assets/css/profile.css')
+    // HTML5 shim, for IE6-8 support of HTML5 elements
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    // Fav and touch icons
+    link(rel='shortcut icon', href='assets/ico/minus.png')
+  body
+    -function prettyDate(dateString){
+      //if it's already a date object and not a string you don't need this line:
+      -var date = new Date(dateString);
+      -var d = date.getDate();
+      -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+                        
+      -var m = monthNames[date.getMonth()];
+      -var y = date.getFullYear();
+      -return d+' '+m+' '+y;
+    -}
+    // Preloader
+    #preloader
+      #status  
+    // TOP NAVBAR
+    nav.navbar.navbar-static-top(role='navigation')
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(data-target='#bs-example-navbar-collapse-1', data-toggle='collapse', type='button')
+            span.entypo-menu
+          button.navbar-toggle.toggle-menu-mobile.toggle-left(type='button')
+            span.entypo-list-add
+          #logo-mobile.visible-xs
+            h1
+              | GPS Tracker
+              
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          
+            
+            
+          #nt-title-container.navbar-left.running-text.visible-lg
+            ul.date-top
+              li.entypo-calendar(style='margin-right:5px')
+              li#Date
+            ul#digital-clock.digital
+              li.entypo-clock(style='margin-right:5px')
+              li.hour
+              li :
+              li.min
+              li :
+              li.sec
+              li.meridiem
+            ul#nt-title
+              li
+                i.wi-day-lightning
+                |   Berlin 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Yogyakarta 
+                b 85
+                i.wi-fahrenheit
+                |  ; Tonight- 72 °F (22.2 °C)
+              li
+                i.wi-day-lightning
+                |   Sttugart 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Muchen 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Frankurt 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+          ul.nav.navbar-nav.navbar-right(style='margin-right:0;')
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                img.admin-pic.img-circle(alt='', src=pic)
+                | Hi, #{user.user_name}
+                b.caret
+              ul.dropdown-setting.dropdown-menu(style='margin-top:14px;', role='menu')
+                li
+                  a(href='/profile')
+                    span.entypo-user
+                    |   My Profile
+                li
+                  a(href='')
+                    span.entypo-vcard
+                    |   Change Password
+                
+                li.divider
+                li
+                  a(href='/logout')
+                    span.entypo-logout
+                    |   Logout
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                span.icon-gear
+                |   Settings
+              ul.dropdown-setting.dropdown-menu(role='menu')
+                li.theme-bg
+                  #button-bg
+                  #button-bg2
+                  #button-bg3
+                  #button-bg5
+                  #button-bg6
+                  #button-bg7
+                  #button-bg8
+                  #button-bg9
+                  #button-bg10
+                  #button-bg11
+                  #button-bg12
+                  #button-bg13
+            
+        // /.navbar-collapse
+      // /.container-fluid
+    // /END OF TOP NAVBAR
+    // SIDE MENU
+    #skin-select
+      #logo.text-center(style="margin-top:31px;")
+        h1(style="font-size:20px;")
+          span(style="background:none;border-radius:0;font-size:17px;padding:0 0;position:static;text-transform:lowercase;") Mii
+          |Dashboard
+          
+      a#toggle
+        span.entypo-menu
+      .dark
+        
+      .skin-part
+        #tree-wrap
+          .side-bar
+            
+            ul.topnav.menu-left-nest
+              
+              li
+                a.tooltip-tip.ajax-load(href='/devices', title='Dashboard')
+                  i.icon-window
+                  span Dashboard
+              li
+                a.tooltip-tip.ajax-load(href='/addgroup', title='addgroup')
+                  i.icon-view-thumb
+                  span Add Group
+              li
+                a.tooltip-tip.ajax-load(href='/adddevice', title='adddevice')
+                  i.icon-view-thumb
+                  span Add Device
+              li
+                a.tooltip-tip(href='#', title='Groups')
+                  i.icon-user-group
+                  span Groups
+                ul
+                  for g in groups
+                    li
+                      a.tooltip-tip2.ajax-load(href='/groups/'+g.group_name, title=g.group_name)
+                        i.icon-user
+                        span #{g.group_name}
+              li
+                a.tooltip-tip2.ajax-load(href='/profile', title='Profile Page')
+                  i.icon-user
+                  span Profile 
+              li
+                a.tooltip-tip2.ajax-load(href='/track', title='Live tracking')
+                  i.icon-user
+                  span Live Tracking 
+
+              li
+                a.tooltip-tip2.ajax-load(href='/history', title='Device Hisory')
+                  i.icon-user
+                  span Device Hisory
+              li
+                a.tooltip-tip2(href='/lock', title='Lock Screen')
+                  i.icon-lock
+                  span Lock Screen
+              
+    // END OF SIDE MENU
+    // PAPER WRAP
+    .wrap-fluid
+      .container-fluid.paper-wrap.bevel.tlbr
+        // CONTENT
+        // TITLE
+        .row
+          #paper-top
+            .col-sm-2(style="padding-right:0px;")
+                h2.tittle-content-header(style="margin-top:6px;")
+                  i.icon-window
+                  span.text-right
+                    | Dashboard
+            .col-sm-5
+              //- .devider-vertical.visible-lg
+              .tittle-middle-header(style="margin-top:-10px;")
+                .alert
+                  //- button.close(type='button', data-dismiss='alert') ×
+                  span.tittle-alert.entypo-info-circled
+                  |                                 Welcome back, 
+                  strong #{user.user_name}
+                  
+            .col-sm-2
+              //- .devider-vertical.visible-lg
+              
+        
+        // END OF BREADCRUMB
+        .content-wrap
+          // PROFILE
+          .row
+            .col-lg-12
+              .well.profile.col-lg-10(style="margin-top:0px;")
+                .col-lg-12
+                  .col-xs-12.col-sm-4.text-center
+                  
+                    ul.list-group
+                      li.list-group-item.text-left
+                        span.entypo-user
+                        |   Profile
+                      li.list-group-item.text-center
+                        img.img-circle.img-responsive.img-profile(src=pic, alt='')
+                      
+                      li.list-group-item.text-right
+                        span.pull-left
+                          strong.
+                            Joined
+                        p #{prettyDate(user.joined_on)}
+                  
+    
+                  .col-xs-12.col-sm-8.profile-name
+                    h2
+                      | #{user.user_name}
+                      
+                    hr
+                    dl.dl-horizontal-profile
+                      dt User Name
+                      dd #{user.user_name}
+                      
+                      dt Email
+                      dd #{user.email}
+                      dt Phone
+                      dd #{user.mobile}
+                      //- dt Active Periode
+                      //- dd 02 Dec 2014
+                      //- dt Last Update
+                      //- dd 02 Apr 2014
+                      //- dt About
+                      //- dd Web Designer / UI
+                      //- dt Hobbies
+                      //- dd Read, out with friends, listen to music, draw and learn new things
+                  .col-xs-12.col-sm-8
+                    span(style="float:right;")
+                      //- - var url = '/delete/'+g_name
+                      a(href="edit_profile")
+                        button.btn-warning.btn#editProfile #[i.fa.fa-pencil] Edit profile    
+                  
+                    
+                
+            
+              // END OF BLANK PAGE
+          // END OF PROFILE
+          // /END OF CONTENT
+          // FOOTER
+          .footer-space
+          #footer
+            .devider-footer-left
+            .time
+              p#spanDate
+              p#clock
+            .copyright
+              | 
+              span
+              | 2017 
+              
+              |  All Rights Reserved
+            .devider-footer
+          // / END OF FOOTER
+      // END OF PAPER WRAP
+      // RIGHT SLIDER CONTENT
+        
+      // END OF RIGHT SLIDER CONTENT
+      // MAIN EFFECT
+      script(type='text/javascript', src='assets/js/preloader.js')
+      script(type='text/javascript', src='assets/js/bootstrap.js')
+      script(type='text/javascript', src='assets/js/app.js')
+      script(type='text/javascript', src='assets/js/load.js')
+      script(type='text/javascript', src='assets/js/main.js')

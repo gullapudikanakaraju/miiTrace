@@ -1,0 +1,664 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title MiiTrace
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    // Le styles
+    link(rel='stylesheet', href='assets/css/style.css')
+    link(rel='stylesheet', href='assets/css/loader-style.css')
+    //- link(rel='stylesheet', href='assets/css/bootstrap.css')
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+
+    link(rel='stylesheet', type='text/css', href='assets/js/progress-bar/number-pb.css')
+    link(rel='stylesheet', type='text/css', href='css/bootstrap-datepicker3.min.css')
+    link(type='text/css', rel='stylesheet', href='css/font-awesome.css')
+
+
+    style(type='text/css').
+      canvas#canvas4 {
+      position: relative;
+      top: 20px;
+      }
+    // HTML5 shim, for IE6-8 support of HTML5 elements
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    // Fav and touch icons
+    link(rel='shortcut icon', href='assets/ico/minus.png')
+  body
+    // Preloader
+    #preloader
+      #status  
+    // TOP NAVBAR
+    nav.navbar.navbar-static-top(role='navigation')
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(data-target='#bs-example-navbar-collapse-1', data-toggle='collapse', type='button')
+            span.entypo-menu
+          button.navbar-toggle.toggle-menu-mobile.toggle-left(type='button')
+            span.entypo-list-add
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              
+          #nt-title-container.navbar-left.running-text.visible-lg
+            ul.date-top
+              li.entypo-calendar(style='margin-right:5px')
+              li#Date
+            ul#digital-clock.digital
+              li.entypo-clock(style='margin-right:5px')
+              li.hour
+              li :
+              li.min
+              li :
+              li.sec
+              li.meridiem
+            ul#nt-title
+              li
+                i.wi-day-lightning
+                |   Berlin 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Yogyakarta 
+                b 85
+                i.wi-fahrenheit
+                |  ; Tonight- 72 °F (22.2 °C)
+              li
+                i.wi-day-lightning
+                |   Sttugart 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Muchen 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Frankurt 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+          ul.nav.navbar-nav.navbar-right(style='margin-right:0;')
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                img.admin-pic.img-circle(alt='', src=pic[0].avatar.path.substring(7))
+                | Hi, #{user.username}
+                b.caret
+              ul.dropdown-setting.dropdown-menu(style='margin-top:14px;', role='menu')
+                li
+                  a(href='/profile')
+                    span.entypo-user
+                    |   My Profile
+                li
+                  a(href='#')
+                    span.entypo-vcard
+                    |   Change password
+                
+                li.divider
+                li
+                  a(href='/logout')
+                    span.entypo-logout
+                    |   Logout
+
+                
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                span.icon-gear
+                |   Setting
+              ul.dropdown-setting.dropdown-menu(role='menu')
+                li.theme-bg
+                  #button-bg
+                  #button-bg2
+                  #button-bg3
+                  #button-bg5
+                  #button-bg6
+                  #button-bg7
+                  #button-bg8
+                  #button-bg9
+                  #button-bg10
+                  #button-bg11
+                  #button-bg12
+                  #button-bg13
+            li.hidden-xs
+              a.toggle-left(href='#')
+                span.entypo-list-add(style='font-size:20px;')
+        // /.navbar-collapse
+      // /.container-fluid
+    // /END OF TOP NAVBAR
+    // SIDE MENU
+    #skin-select
+      #logo
+        h1
+          | MiiTrace
+          p
+      a#toggle
+        span.entypo-menu
+      .dark
+      
+          
+      .skin-part
+        #tree-wrap
+          .side-bar
+            ul.topnav.menu-left-nest
+              li
+                form(action="")
+                  input.form-control(type="date", name="date" required)
+                        
+
+                  button.btn.btn-info.pull-right(type="submit") Get data
+              li
+                a.title-menu-left(href='#', style='border-left:0px solid!important;')
+                  span.design-kit
+                  i.entypo-cog.pull-right.config-wrap(data-toggle='tooltip')
+              li
+                a.tooltip-tip.ajax-load(href='/devices', title='Dashboard')
+                  i.icon-window
+                  span Dashboard
+              li
+                a.tooltip-tip.ajax-load(href='/addgroup', title='addgroup')
+                  i.icon-view-thumb
+                  span Add Group
+              li
+                a.tooltip-tip.ajax-load(href='/adddevice', title='adddevice')
+                  i.icon-view-thumb
+                  span Add Device
+              li
+                a.tooltip-tip(href='#', title='Groups')
+                  i.icon-user-group
+                  span Groups
+                ul
+                  for g in groups
+                    li
+                      a.tooltip-tip2.ajax-load(href=g.url, title=g.name)
+                        i.icon-user
+                        span #{g.name}
+              li
+                a.tooltip-tip2.ajax-load(href='/profile', title='Profile Page')
+                  i.icon-user
+                  span Profile 
+              li
+                a.tooltip-tip2(href='/lock', title='Lock Screen')
+                  i.icon-lock
+                  span Lock Screen
+              //- li
+              //-   a.tooltip-tip(href='/logout', title='logout')
+              //-     i.icon-download
+              //-     span Logout
+
+              
+            
+    // END OF SIDE MENU
+    // PAPER WRAP
+    .wrap-fluid
+      .container-fluid.paper-wrap.bevel.tlbr
+        // CONTENT
+        // TITLE
+        .row
+          #paper-top
+            .col-sm-3
+              h2.tittle-content-header
+                i.icon-window
+                span
+                  | Dashboard
+            .col-sm-7
+              .devider-vertical.visible-lg
+              .tittle-middle-header
+                .alert
+                  button.close(type='button', data-dismiss='alert') ×
+                  span.tittle-alert.entypo-info-circled
+                  |                                   Welcome back,
+                  if user 
+                    strong   #{user.username}
+                  |  
+            .col-sm-2
+              .devider-vertical.visible-lg
+                button.btn-success#play(style="position:relative; top:30px; left:20px;") Play
+        //- #paper-middle
+        //-   #mapContainer
+        if alertmessage
+
+          .alert.alert-danger.alert-dismissable.fade.in
+            a.close(href='#', data-dismiss='alert', aria-label='close') ×
+            strong #{alertmessage}
+        
+
+        #googleMap(style='width:100%;height:400px;')
+        br
+        br
+        .content-wrap
+          .row
+            .col-sm-3
+              #profitClose.profit
+                .headline
+                  h3
+                    span
+                      i.maki-ferry
+                      |   Ferry Arrival
+                  .titleClose
+                    a.gone(href='#profitClose')
+                      span.entypo-cancel
+                .value
+                  span.pull-left
+                    i.entypo-clock.clock-position
+                  #getting-started
+                    span %M
+                    span %S
+                .progress-tinny
+                  .bar(style='width: 50%')
+                .profit-line
+                  i.fa.fa-caret-up.fa-lg
+                  |    50%  From Last Hour
+            .col-sm-3
+              #revenueClose.revenue
+                .headline
+                  h3
+                    span
+                      i.maki-aboveground-rail
+                      |   Train Speed
+                  .titleClose
+                    a.gone(href='#revenueClose')
+                      span.entypo-cancel
+                .value
+                  span.pull-left
+                    i.entypo-gauge.gauge-position
+                  canvas#canvas4(width='70', height='70')
+                  i.pull-right /Km
+                .progress-tinny
+                  .bar(style='width: 25%')
+                .profit-line
+                  i.fa.fa-caret-down.fa-lg
+                  |   Rate : 20 km/Hour
+            .col-sm-3
+              #orderClose.order
+                .headline
+                  h3
+                    span
+                      i.maki-airport
+                      |   AIR PORT TRAFFIC
+                  .titleClose
+                    a.gone(href='#orderClose')
+                      span.entypo-cancel
+                .value
+                  span
+                    i.fa.fa-plane.fa-2x
+                  b#speed
+                  b Take Off
+                .progress-tinny
+                  .bar(style='width: 10%')
+                .profit-line
+                  i.fa.fa-caret-down.fa-lg
+                  |   Rate : 20 Plane/Hour
+            .col-sm-3
+              #memberClose.member
+                .headline
+                  h3
+                    span
+                      i.fa.fa-truck
+                      |                                           CARGO
+                  .titleClose
+                    a.gone(href='#memberClose')
+                      span.entypo-cancel
+                .value
+                  span
+                    i.maki-warehouse
+                  | 45
+                  b Sent
+                .progress-tinny
+                  .bar(style='width: 50%')
+                .profit-line
+                  span.entypo-down-circled
+                  |  50% From Last Month
+
+        .content-wrap
+          .row
+            .sm-7
+              #siteClose.nest
+                .title-alt
+                  h6
+                    span.fontawesome-truck
+                    |  Destination
+                  .titleClose
+                    a.gone(href='#siteClose')
+                      span.entypo-cancel
+                  .titleToggle
+                    a.nav-toggle-alt(href='#site')
+                      span.entypo-up-open
+                #site.body-nest(style='min-height:296px;')
+                  .table-responsive
+                    table.table
+                      thead
+                        tr
+                          th
+                          th
+                          th
+                      tbody
+                        tr
+                          td.armada-devider
+                            .armada
+                              span(style='background:#65C3DF')
+                                span.maki-bus
+                                |   Trans Berlin
+                              p
+                                span.entypo-gauge
+                                |  12 Km/
+                                i Hours
+                          td.driver-devider
+                            img.armada-pic.img-circle(alt='', src='http://api.randomuser.me/portraits/thumb/men/14.jpg')
+                            h3 Mark Zuckerberg
+                            br
+                            p Driver
+                          td.progress-devider
+                            section#basic
+                              article
+                                .number-pb
+                                  .number-pb-shown
+                                  .number-pb-num 0
+                            span.label.pull-left Berlin
+                            span.label.pull-right Muchen
+                        tr
+                          td.armada-devider
+                            .armada
+                              span(style='background:#45B6B0')
+                                span.fontawesome-plane
+                                |   Fly Airlines
+                              p
+                                span.entypo-gauge
+                                |  600 Km/
+                                i Hours
+                          td.driver-devider
+                            img.armada-pic.img-circle(alt='', src='http://api.randomuser.me/portraits/thumb/men/38.jpg')
+                            h3 Marko Freytag
+                            br
+                            p Pilot
+                          td.progress-devider
+                            section#percentage
+                              article
+                                .number-pb
+                                  .number-pb-shown.dream
+                                  .number-pb-num 0%
+                            span.label.pull-left Berlin
+                            span.label.pull-right London
+                        tr
+                          td.armada-devider
+                            .armada
+                              span(style='background:#FF6B6B')
+                                span.maki-aboveground-rail
+                                |   Fazttrain
+                              p
+                                span.entypo-gauge
+                                |  40 Km/
+                                i Hours
+                          td.driver-devider
+                            img.armada-pic.img-circle(alt='', src='http://api.randomuser.me/portraits/thumb/men/39.jpg')
+                            h3 Dieter Gruenewald
+                            br
+                            p machinist
+                          td.progress-devider
+                            section#step
+                              article
+                                .number-pb
+                                  .number-pb-shown.sun
+                                  .number-pb-num 0/0
+                            span.label.pull-left Berlin
+                            span.label.pull-right Dortmund
+            .sm-4
+              .weather-wrap
+                .row  
+                  .col-sm-12
+                    .temperature
+                      b Monday
+                      | , 07:30 AM
+                      span F
+                      span
+                        b C
+                .row
+                  .col-sm-4
+                    .weather-icon
+                      i.wi-day-lightning
+                  .col-sm-8
+                    .weather-text
+                      h2
+                        | Berlin
+                        br
+                        i Day Lightning
+                .row
+                  .col-sm-12
+                    .weather-text
+                      h3
+                        i.wi-thermometer
+                        | 18
+                        i.wi-celcius
+              
+        .footer-space
+        #footer
+          .devider-footer-left
+          .time
+            p#spanDate
+            p#clock
+          .copyright
+            
+            span &copy;
+            | 2017 | 
+            
+            |  All Rights Reserved
+          .devider-footer
+        // / END OF FOOTER
+    // END OF PAPER WRAP
+    // RIGHT SLIDER CONTENT
+    .sb-slidebar.sb-right
+      .right-wrapper
+        .row
+          h3
+            span
+              i.entypo-gauge
+              |   MAIN WIDGET
+          .col-sm-12
+            .widget-knob
+              span.chart(style='position:relative', data-percent='86')
+                span.percent
+            .widget-def
+              b Distance traveled
+              br
+              i 86% to the check point
+            .widget-knob
+              span.speed-car(style='position:relative', data-percent='60')
+                span.percent2
+            .widget-def
+              b The average speed
+              br
+              i 30KM/h avarage speed
+            .widget-knob
+              span.overall(style='position:relative', data-percent='25')
+                span.percent3
+            .widget-def
+              b Overall result
+              br
+              i 30KM/h avarage Result
+    // END OF RIGHT SLIDER CONTENT
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js')
+    script(src='assets/js/progress-bar/src/jquery.velocity.min.js')
+    script(src='assets/js/progress-bar/number-pb.js')
+    script(src='assets/js/progress-bar/progress-app.js')
+    // MAIN EFFECT
+    script(type='text/javascript', src='assets/js/preloader.js')
+    //- script(type='text/javascript', src='assets/js/bootstrap.js')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+
+    script(type='text/javascript', src='assets/js/app.js')
+    script(type='text/javascript', src='assets/js/load.js')
+    script(type='text/javascript', src='assets/js/main.js')
+    // GAGE
+    script(type='text/javascript', src='assets/js/chart/jquery.flot.js')
+    script(type='text/javascript', src='assets/js/chart/jquery.flot.resize.js')
+    script(type='text/javascript', src='js/bootstrap-datepicker.min.js')
+
+    //- script(type='text/javascript', src='assets/js/speed/canvasgauge-coustom.js')
+    script(type='text/javascript', src='assets/js/countdown/jquery.countdown.js')
+    script(src='assets/js/jhere-custom.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js")
+
+
+    script.
+      var gauge4 = new Gauge("canvas4", {
+      'mode': 'needle',
+      'range': {
+      'min': 0,
+      'max': 90
+      }
+      });
+      gauge4.draw(Math.floor(Math.random() * 90));
+      var run = setInterval(function() {
+      gauge4.draw(Math.floor(Math.random() * 90));
+      }, 3500);
+
+    script(type='text/javascript').
+      var data=!{JSON.stringify(data)} ;
+      console.log(data);
+      //- data=[];
+
+      //- //- data = !{JSON.stringify(data)};
+      //- //- data=JSON.parse(data[0]);
+      //- //- console.log(data);
+      var map;
+      var mark;
+      var pmark;
+      var lineCoords = [];
+      var timer;
+
+      //- //- lineCoords = data;
+      //- //- for(i=2;i<data.length;i++){
+      //- //- lineCoords.push(new google.maps.LatLng(Number(data[i].latitude), Number(data[i].longitude)));
+      //- //- }
+      //- //- console.log(lineCoords);
+      //- setInterval(function(){
+      //- var dynamicdata={};
+      //- $.ajax({
+      //-       url: "http://localhost:8000/_up/"+a,
+      //-       type: 'GET',
+      //-       success: function(res) {
+                
+
+      //-           console.log(res.data);
+      //-           console.log(typeof(res.data));
+      //-           //- data = JSON.parse(res.data);
+      //-           data = res.data;
+      //-           //- console.log(data[0].latitude);
+
+      //-           //- dynamicdata.latitude=res.data.latitude;
+      //-           //- dynamicdata.longitude=res.data.longitude;
+      //-           //- dynamicdata.speed = res.data.speed;
+      //-           //- console.log(dynamicdata);
+      //-           //- console.log(Number(dynamicdata.latitude));
+      //-           //- myMap(dynamicdata);
+      //-           //- map  = new google.maps.Map(document.getElementById('googleMap'), {center:{lat:res.data.latitiude,lng:res.data.longitude},zoom:5});
+      //-           //- mark = new google.maps.Marker({position:{lat:res.data.latitude, lng:res.data.longitude}, map:map});
+      //-           //- lineCoords.push(new google.maps.LatLng(res.data.latitude, res.data.longitude));
+      //-           map.setCenter({lat:Number(data[0].latitude), lng:Number(data[0].longitude)});
+      //-           mark.setPosition({lat:Number(data[data.length-1].latitude), lng:Number(data[data.length-1].longitude)});
+      //-           for(i=0;i<data.length;i++){
+      //-           lineCoords.push(new google.maps.LatLng(Number(data[i].latitude), Number(data[i].longitude)));
+      //-           }
+      //-           var lineCoordinatesPath = new google.maps.Polyline({
+      //-           path: lineCoords,
+      //-           geodesic: true,
+      //-           strokeColor: '#2E10FF'
+      //-         });
+              
+      //-           lineCoordinatesPath.setMap(map);
+                var c=document.getElementById("canvas4");
+                var ctx=c.getContext("2d");
+
+                ctx.fillStyle = "#FFA200";
+                ctx.font = "60px Open Sans";
+                
+                ctx.clearRect(0,0,c.width,c.height);   
+
+                ctx.fillText(data[data.length-1].speed, 1,50);
+                
+
+      //-       }
+            
+      //-   });
+      //-   },1000);
+
+        function myMap1(){
+          map  = new google.maps.Map(document.getElementById('googleMap'), {center:{lat:Number(data[0].latitude) , lng:Number(data[0].longitude)},zoom:5});
+          mark = new google.maps.Marker({position:{lat:Number(data[data.length-1].latitude), lng:Number(data[data.length-1].longitude)}, map:map});
+          //- lineCoords.push(new google.maps.LatLng(res.data.latitude, res.data.longitude));
+          for(i=0;i<data.length;i++){
+            lineCoords.push(new google.maps.LatLng(Number(data[i].latitude), Number(data[i].longitude)));
+          }
+                  var lineCoordinatesPath = new google.maps.Polyline({
+                  path: lineCoords,
+                  geodesic: true,
+                  strokeColor: '#2E10FF'
+                });
+                
+                  lineCoordinatesPath.setMap(map);
+
+        }
+        var j=0;
+        function execute(){
+             timer = setTimeout(function () {
+                       //- alert(array[i]);
+                    console.log(data[j]);
+
+                mark.setPosition({lat:Number(data[j].latitude), lng:Number(data[j].longitude)});
+                       j++;
+                       if (data.length > j){
+                           execute();
+                       }
+                       if(j==data.length){
+                       j=0;
+                       $('#play').text('Play');
+                       //- mark.setMap(null);
+                       }
+                   }, 500);
+        }
+
+
+
+        $('#play').click(function(){
+            if ($(this).text() == 'Pause'){
+              clearTimeout(timer);
+              $(this).text('Play');
+            } 
+          else if($(this).text() == 'Play'){
+            //- mark = new google.maps.Marker({position:{lat:Number(data[0].latitude), lng:Number(data[0].longitude)}, map:map, icon:'marker/mm_20_red.png'});
+            //- console.log(data);
+            execute();
+            $(this).text('Pause');
+            }
+          //- else {
+          //-     execute();
+          //-     $(this).text('pause');
+          //-   }
+        //- execute(data,i);
+
+        });     
+
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDhTRYIz4znpMwkFxBwkNbMV-Otp5_vvsI&callback=myMap1')
+    script.
+      myMap1();
+
+
+
+      
+    script(type='text/javascript').
+      $('#getting-started').countdown('2015/01/01', function(event) {
+      $(this).html(event.strftime(
+      '<span>%M</span>' + '<span class="start-min">:</span>' + '<span class="start-min">%S</span>'));
+      });
+      $('#form-container .input-group.date').datepicker({
+        todayHighlight: true
+      });

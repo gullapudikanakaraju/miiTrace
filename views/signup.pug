@@ -1,0 +1,83 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title MiiTrace
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		// Le styles
+		script(type='text/javascript', src='assets/js/jquery.min.js')
+		// <link rel="stylesheet" href="assets/css/style.css">
+		link(rel='stylesheet', href='assets/css/loader-style.css')
+		link(rel='stylesheet', href='assets/css/bootstrap.css')
+		link(rel='stylesheet', href='assets/css/signin.css')
+		// HTML5 shim, for IE6-8 support of HTML5 elements
+		//if lt IE 9
+			script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+		// Fav and touch icons
+		link(rel='shortcut icon', href='assets/ico/minus.png')
+	style.
+		body{
+		  background: url(icon/bg_blurr.png) no-repeat center center fixed; 
+		  background-size:cover;
+		  background-color:rgba(255,255,255,0.5);
+		  
+		}
+		.account-box{
+		border:1px solid gray;
+		}
+	body
+		// Preloader
+		#preloader
+			#status  
+		.container
+			#login-wrapper
+				.row
+					.col-md-3(style="position:relative; left:37.5%;")
+						#logo-login
+							h1
+								| SIGNUP
+				.row
+					.col-md-3(style="position:relative; left:37.5%;")
+						.account-box
+							form(role='form', action="", method="POST")
+								if message
+									p.text-danger #{message}
+								.form-group
+									//- label(for='email') Email
+									input#inputUsernameEmail.form-control(placeholder="Email", type='text', name='email', required='required')
+								.form-group
+									//- label(for='username') Username
+									input#inputUsernameEmail.form-control(placeholder="Username", type='text', name='username', required='required')
+								.form-group
+									//- label(for='contact') Contact No.
+									input#inputUsernameEmail.form-control(placeholder="Contact Number", type='text', name='contact', required='required')
+								.form-group
+									//- label(for='password') Password
+									input#inputPassword.form-control(placeholder="Password", type='password', name='password', required='required')
+								.form-group
+									//- label(for='confirmpassword') Password again
+									input#inputUsernameEmail.form-control(placeholder="Confirm Password", type='password', name='confirmpassword', required='required')
+								//- .form-group
+								//- 	//- label(for='confirmpassword') Password again
+								//- 	input#inputUsernameEmail.form-control(placeholder="Confirm Password", type='file', name='avatar')
+								button.col-md-12.btn.btn.btn-primary.pull-right(type='submit')
+									| Sign Up
+							br
+							br
+							.row-block
+								.row
+									.col-md-12.row-block.col-md-offset-2
+										a(href='/') Already registered? login
+		//- #test1.gmap3
+		// END OF PAPER WRAP
+		// MAIN EFFECT
+		script(type='text/javascript', src='assets/js/preloader.js')
+		script(type='text/javascript', src='assets/js/bootstrap.js')
+		script(type='text/javascript', src='assets/js/app.js')
+		script(type='text/javascript', src='assets/js/load.js')
+		script(type='text/javascript', src='assets/js/main.js')
+		//- script(src='http://maps.googleapis.com/maps/api/js?sensor=false', type='text/javascript')
+		//- script(type='text/javascript', src='assets/js/map/gmap3.js')
+		

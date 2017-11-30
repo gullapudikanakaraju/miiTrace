@@ -1,0 +1,333 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title MiiTrace
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    // Le styles
+    link(rel='stylesheet', href='assets/css/style.css')
+    link(rel='stylesheet', href='assets/css/loader-style.css')
+    link(rel='stylesheet', href='assets/css/bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='assets/js/progress-bar/number-pb.css')
+    style(type='text/css').
+      canvas#canvas4 {
+      position: relative;
+      top: 20px;
+      }
+    // HTML5 shim, for IE6-8 support of HTML5 elements
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    // Fav and touch icons
+    link(rel='shortcut icon', href='assets/ico/minus.png')
+  body
+    // Preloader
+    #preloader
+      #status  
+    // TOP NAVBAR
+    nav.navbar.navbar-static-top(role='navigation')
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(data-target='#bs-example-navbar-collapse-1', data-toggle='collapse', type='button')
+            span.entypo-menu
+          button.navbar-toggle.toggle-menu-mobile.toggle-left(type='button')
+            span.entypo-list-add
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            
+          #nt-title-container.navbar-left.running-text.visible-lg
+            ul.date-top
+              li.entypo-calendar(style='margin-right:5px')
+              li#Date
+            ul#digital-clock.digital
+              li.entypo-clock(style='margin-right:5px')
+              li.hour
+              li :
+              li.min
+              li :
+              li.sec
+              li.meridiem
+            ul#nt-title
+              li
+                i.wi-day-lightning
+                |   Berlin 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Yogyakarta 
+                b 85
+                i.wi-fahrenheit
+                |  ; Tonight- 72 °F (22.2 °C)
+              li
+                i.wi-day-lightning
+                |   Sttugart 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Muchen 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+              li
+                i.wi-day-lightning
+                |   Frankurt 
+                b 85
+                i.wi-fahrenheit
+                |  ; 15km/h
+          ul.nav.navbar-nav.navbar-right(style='margin-right:0;')
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                
+                | Hi, #{user.username}
+                
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                span.icon-gear
+                |   Setting
+              ul.dropdown-setting.dropdown-menu(role='menu')
+                li.theme-bg
+                  #button-bg
+                  #button-bg2
+                  #button-bg3
+                  #button-bg5
+                  #button-bg6
+                  #button-bg7
+                  #button-bg8
+                  #button-bg9
+                  #button-bg10
+                  #button-bg11
+                  #button-bg12
+                  #button-bg13
+            li.hidden-xs
+              a.toggle-left(href='#')
+                span.entypo-list-add(style='font-size:20px;')
+        // /.navbar-collapse
+      // /.container-fluid
+    // /END OF TOP NAVBAR
+    // SIDE MENU
+    #skin-select
+      #logo
+        h1
+          | GPS
+          p TRACKER
+      a#toggle
+        span.entypo-menu
+      .dark
+        
+      .skin-part
+        #tree-wrap
+          .side-bar
+            ul.topnav.menu-left-nest
+              li
+                a.title-menu-left(href='#', style='border-left:0px solid!important;')
+                  span.design-kit
+                  i.entypo-cog.pull-right.config-wrap(data-toggle='tooltip')
+              li
+                a.tooltip-tip.ajax-load(href='', title='Dashboard')
+                  i.icon-window
+                  span Dashboard
+              li
+                a.tooltip-tip(href='/logout', title='logout')
+                  i.icon-download
+                  span Logout
+
+              
+            
+    // END OF SIDE MENU
+    // PAPER WRAP
+    .wrap-fluid
+      .container-fluid.paper-wrap.bevel.tlbr
+        // CONTENT
+        // TITLE
+        .row
+          #paper-top
+            .col-sm-3
+              h2.tittle-content-header
+                i.icon-window
+                span
+                  | Dashboard
+            .col-sm-7
+              .devider-vertical.visible-lg
+              .tittle-middle-header
+                .alert
+                  button.close(type='button', data-dismiss='alert') ×
+                  span.tittle-alert.entypo-info-circled
+                  |                                 Welcome back,
+                  if user 
+                    strong   #{user.username}
+                  |  
+            .col-sm-2
+              .devider-vertical.visible-lg
+              a(href="/adddevice")
+                button Add Device
+          .col-lg-4.col-lg-offset-3
+            if !users.length
+              h2 There are no users yet.
+            else
+               
+              for user in users
+                -if(user.username!='admin')
+
+                  p Device IDs listed for user : #{user.username}
+                  for d in user.devices
+                    a(href="/device/"+d)
+                      p #{d}
+              
+        .footer-space
+        #footer
+          .devider-footer-left
+          .time
+            p#spanDate
+            p#clock
+          .copyright
+            
+            span &copy;
+            | 2017 | 
+            
+            |  All Rights Reserved
+          .devider-footer
+        // / END OF FOOTER
+    // END OF PAPER WRAP
+    // RIGHT SLIDER CONTENT
+    .sb-slidebar.sb-right
+      .right-wrapper
+        .row
+          h3
+            span
+              i.entypo-gauge
+              |   MAIN WIDGET
+          .col-sm-12
+            .widget-knob
+              span.chart(style='position:relative', data-percent='86')
+                span.percent
+            .widget-def
+              b Distance traveled
+              br
+              i 86% to the check point
+            .widget-knob
+              span.speed-car(style='position:relative', data-percent='60')
+                span.percent2
+            .widget-def
+              b The average speed
+              br
+              i 30KM/h avarage speed
+            .widget-knob
+              span.overall(style='position:relative', data-percent='25')
+                span.percent3
+            .widget-def
+              b Overall result
+              br
+              i 30KM/h avarage Result
+    // END OF RIGHT SLIDER CONTENT
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js')
+    script(src='assets/js/progress-bar/src/jquery.velocity.min.js')
+    script(src='assets/js/progress-bar/number-pb.js')
+    script(src='assets/js/progress-bar/progress-app.js')
+    // MAIN EFFECT
+    script(type='text/javascript', src='assets/js/preloader.js')
+    script(type='text/javascript', src='assets/js/bootstrap.js')
+    script(type='text/javascript', src='assets/js/app.js')
+    script(type='text/javascript', src='assets/js/load.js')
+    script(type='text/javascript', src='assets/js/main.js')
+    // GAGE
+    script(type='text/javascript', src='assets/js/chart/jquery.flot.js')
+    script(type='text/javascript', src='assets/js/chart/jquery.flot.resize.js')
+    script(type='text/javascript', src='assets/js/speed/canvasgauge-coustom.js')
+    script(type='text/javascript', src='assets/js/countdown/jquery.countdown.js')
+    script(src='assets/js/jhere-custom.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js")
+
+    script.
+      var gauge4 = new Gauge("canvas4", {
+      'mode': 'needle',
+      'range': {
+      'min': 0,
+      'max': 90
+      }
+      });
+      gauge4.draw(Math.floor(Math.random() * 90));
+      var run = setInterval(function() {
+      gauge4.draw(Math.floor(Math.random() * 90));
+      }, 3500);
+
+    script(type='text/javascript').
+      /* Javascript
+      *
+      * See http://jhere.net/docs.html for full documentation
+      */
+      var dynamicdata={};
+      $.ajax({
+            url: "http://localhost:8000/_up",
+            type: 'GET',
+            success: function(res) {
+                console.log(res.data.latitude);
+                dynamicdata.latitude=res.data.latitude;
+                dynamicdata.longitude=res.data.longitude;
+                console.log(dynamicdata);
+               
+            }
+        });
+        setTimeout(function(){
+      $(window).on('load', function() {
+       $('#mapContainer').jHERE({
+      center: [dynamicdata.latitude, dynamicdata.longitude],
+      type: 'smart',
+      zoom: 10
+      }).jHERE('marker', [dynamicdata.latitude, dynamicdata.longitude], {
+      icon: 'assets/img/marker.png',
+      anchor: {
+      x: 12,
+      y: 32
+      },
+      click: function() {
+      alert('Hello');
+      }
+      })
+      //- .jHERE('route', [52.711, 13.011], [52.514, 13.453], {
+      //- color: '#FFA200',
+      //- marker: {
+      //- fill: '#86c440',
+      //- text: '#'
+      //- }
+      //- });
+
+      
+      });
+      },2000);
+      
+    script(type='text/javascript').
+      var output, started, duration, desired;
+      // Constants
+      duration = 5000;
+      desired = '50';
+      // Initial setup
+      output = $('#speed');
+      started = new Date().getTime();
+      // Animate!
+      animationTimer = setInterval(function() {
+      // If the value is what we want, stop animating
+      // or if the duration has been exceeded, stop animating
+      if (output.text().trim() === desired || new Date().getTime() - started > duration) {
+      console.log('animating');
+      // Generate a random string to use for the next animation step
+      output.text('' + Math.floor(Math.random() * 60)
+      );
+      } else {
+      console.log('animating');
+      // Generate a random string to use for the next animation step
+      output.text('' + Math.floor(Math.random() * 120)
+      );
+      }
+      }, 5000);
+    script(type='text/javascript').
+      $('#getting-started').countdown('2015/01/01', function(event) {
+      $(this).html(event.strftime(
+      '<span>%M</span>' + '<span class="start-min">:</span>' + '<span class="start-min">%S</span>'));
+      });
